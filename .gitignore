@@ -23,4 +23,9 @@ submissions/
 ph
 barrier
 *.py
-.*
+.gitignore
+.dir-locals.el
+.editorconfig
+.gdbinit.tmpl-riscv
+grade-lab-util
+
