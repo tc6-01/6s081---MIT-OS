@@ -30,7 +30,6 @@ int main(int argc, char const *argv[])
 		pid = getpid();
 		char info[2] = "a";
 		char buf[2];
-		buf[1] = 0;
 		if (write(p[1], info, 1) != 1)
 		{
 			fprintf(2, "failed to write in parent\n");
