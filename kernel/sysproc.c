@@ -95,3 +95,15 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// add the new syscall -- trace
+uint64
+sys_trace(void)
+{
+  int var;
+  if(argint(0, &var) < 0)
+    return -1;
+  // get the argument of syscall func
+  myproc()->number = var;
+  return 0;
+}

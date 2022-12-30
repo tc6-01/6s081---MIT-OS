@@ -22,6 +22,8 @@ main(int argc, char *argv[])
   for(i = 2; i < argc && i < MAXARG; i++){
     nargv[i-2] = argv[i];
   }
+  // exec the command after pid and trace
+  // you can understand it as a call command but have captured the run progresses. 
   exec(nargv[0], nargv);
   exit(0);
 }

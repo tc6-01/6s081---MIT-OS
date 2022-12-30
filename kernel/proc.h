@@ -56,6 +56,7 @@ struct trapframe {
   /*  88 */ uint64 t2;
   /*  96 */ uint64 s0;
   /* 104 */ uint64 s1;
+  // the caller function use them
   /* 112 */ uint64 a0;
   /* 120 */ uint64 a1;
   /* 128 */ uint64 a2;
@@ -105,4 +106,6 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  int number;            // The call register argv numer
 };
