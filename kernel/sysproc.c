@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -105,5 +106,25 @@ sys_trace(void)
     return -1;
   // get the argument of syscall func
   myproc()->number = var;
+  return 0;
+}
+
+// add sysinfo test -- kernel call
+uint64 sys_info(void)
+{
+  // main code in sys_info command
+   // 从用户态读入一个指针，作为存放 sysinfo 结构的缓冲区
+  uint64 addr;
+  if(argaddr(0, &addr) < 0)
+    return -1;
+  
+  struct sysinfo info;
+  info.freemem = freeMemCount(); // kalloc.c
+  info.nproc = procCount(); // proc.c
+  printf("此时的空闲内存数量为:%d , 此时已经申请的进程数量为:%d \n", info.freemem, info.nproc);
+  // 使用 copyout，结合当前进程的页表，获得进程传进来的指针（逻辑地址）对应的物理地址
+  // 然后将 &sinfo 中的数据复制到该指针所指位置，供用户进程使用。
+  if(copyout(myproc()->pagetable, addr, (char *)&info, sizeof(info)) < 0)
+    return -1;
   return 0;
 }

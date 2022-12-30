@@ -1,8 +1,10 @@
 struct stat;
 struct rtcdate;
+struct sysinfo;
 
 // system calls
 int fork(void);
+int sysinfo(struct sysinfo *);
 int exit(int) __attribute__((noreturn));
 int wait(int*);
 int trace(int);
